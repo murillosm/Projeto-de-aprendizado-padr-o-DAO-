@@ -1,19 +1,22 @@
 package model.entities;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Objects;
 
 public class Seller {
-    private int id;
+    private int idSeller;
     private String name;
     private String email;
     private Date birthDate;
     private double baseSalary;
 
+    private Department department;
+
     /***************** Constructor *******************/
     public Seller() {
     }
     public Seller(int id, String name, String email, Date birthDate, double baseSalary) {
-        this.id = id;
+        this.idSeller = id;
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
@@ -21,12 +24,12 @@ public class Seller {
     }
 
     /******************* Get and Set *******************/
-    public int getId() {
-        return id;
+    public int getIdSeller() {
+        return idSeller;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdSeller(int idSeller) {
+        this.idSeller = idSeller;
     }
 
     public String getName() {
@@ -59,5 +62,37 @@ public class Seller {
 
     public void setBaseSalary(double baseSalary) {
         this.baseSalary = baseSalary;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seller seller = (Seller) o;
+        return idSeller == seller.idSeller;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idSeller);
+    }
+
+    @Override
+    public String toString() {
+        return "Seller{" +
+               "id = " + idSeller +
+               ", name = '" + name + '\'' +
+               ", email = '" + email + '\'' +
+               ", birthDate = " + birthDate +
+               ", baseSalary = " + baseSalary +
+               '}';
     }
 }
