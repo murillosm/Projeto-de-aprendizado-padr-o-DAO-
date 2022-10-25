@@ -15,8 +15,8 @@ public class Seller {
     /***************** Constructor *******************/
     public Seller() {
     }
-    public Seller(int id, String name, String email, Date birthDate, double baseSalary) {
-        this.idSeller = id;
+    public Seller(int idSeller, String name, String email, Date birthDate, double baseSalary) {
+        this.idSeller = idSeller;
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
@@ -88,11 +88,12 @@ public class Seller {
     @Override
     public String toString() {
         return "Seller{" +
-               "id = " + idSeller +
+               "idSeller = " + idSeller +
                ", name = '" + name + '\'' +
                ", email = '" + email + '\'' +
                ", birthDate = " + birthDate +
                ", baseSalary = " + baseSalary +
+               ", " + department +
                '}';
     }
 }
