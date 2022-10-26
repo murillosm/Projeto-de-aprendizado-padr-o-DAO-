@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Seller {
-    private int idSeller;
+    private Integer idSeller;
     private String name;
     private String email;
     private Date birthDate;
@@ -15,20 +15,21 @@ public class Seller {
     /***************** Constructor *******************/
     public Seller() {
     }
-    public Seller(int idSeller, String name, String email, Date birthDate, double baseSalary) {
+    public Seller(Integer idSeller, String name, String email, Date birthDate, double baseSalary, Department department) {
         this.idSeller = idSeller;
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
         this.baseSalary = baseSalary;
+        this.department = department;
     }
 
     /******************* Get and Set *******************/
-    public int getIdSeller() {
+    public Integer getIdSeller() {
         return idSeller;
     }
 
-    public void setIdSeller(int idSeller) {
+    public void setIdSeller(Integer idSeller) {
         this.idSeller = idSeller;
     }
 

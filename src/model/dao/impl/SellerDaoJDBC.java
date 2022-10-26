@@ -6,10 +6,7 @@ import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +19,81 @@ public class SellerDaoJDBC implements SellerDao {
     public SellerDaoJDBC(Connection conn){
         this.conn = conn;
     }
+/* @Override
+    public void insert(Seller obj) {
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("INSERT INTO seller "
+                                        + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+                                        + "VALUES "
+                                        + "(?, ?, ?, ?, ?)",
+                                        Statement.RETURN_GENERATED_KEYS); //retornar o id do novo vendedor inserido.
 
+            pst.setString(1, obj.getName());
+            pst.setString(2, obj.getEmail());
+            pst.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
+            pst.setDouble(4, obj.getBaseSalary());
+            pst.setInt(5, obj.getDepartment().getIdDepartment());
+
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet rs = pst.getGeneratedKeys();
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    obj.setIdSeller(id);
+                }
+                DB.closeResultSet(rs);
+            }
+            else {
+                throw new DbException("Unexpected error! No rows affected!");
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(pst);
+        }
+    }*/
     @Override
     public void insert(Seller obj) {
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement(
+                    "INSERT INTO seller "
+                    + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+                    + "VALUES "
+                    + "(?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS); //retornar o id do novo vendedor inserido.
 
+            pst.setString(1, obj.getName());
+            pst.setString(2, obj.getEmail());
+            pst.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
+            pst.setDouble(4, obj.getBaseSalary());
+            pst.setInt(5, obj.getDepartment().getIdDepartment());
+
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0){
+                ResultSet rs = pst.getGeneratedKeys();
+                if (rs.next()){
+                    int id = rs.getInt(1);
+                    obj.setIdSeller(id);
+                }
+                DB.closeResultSet(rs);
+            }else {
+                throw new DbException("Unexpected error! No rows affected");
+            }
+
+        }
+        catch (SQLException e) {
+                throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(pst);
+            //DB.closeConnection();
+        }
     }
 
     @Override
